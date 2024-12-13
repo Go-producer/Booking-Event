@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* Черный фон */
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333; /* Темно-серый */
+    color: #fff;
+}
+
+/* Верхняя плашка авторизации */
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 10px;
+}
+
+.navbar span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.auth-form {
+    background-color: #6a5acd; /* Фиолетовый */
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    text-align: center;
+}
+
+.auth-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.auth-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth-form button {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.auth-form button:hover {
+    background-color: #555;
+}
+
+.register-link {
+    margin-top: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
