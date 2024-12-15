@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.conf import settings
 
 # Менеджер пользователя
 class UserManager(BaseUserManager):
     def create_user(self, email, name, password=None):
         if not email:
             raise ValueError('Пользователи должны иметь адрес электронной почты')
+        if self.model.objects.filter(email=email).exists():
+            raise ValueError('Пользователь с таким email уже существует')
         email = self.normalize_email(email)
         user = self.model(email=email, name=name)
         user.set_password(password)
@@ -21,8 +24,8 @@ class UserManager(BaseUserManager):
 
 # Модель пользователя
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)
-    name = models.CharField(max_length=40)
+    email = models.EmailField(unique=True)  # Уникальность email
+    name = models.CharField(max_length=40, unique=True)  # Логин (если нужен уникальный)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -39,8 +42,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    USERNAME_FIELD = 'email'  # Email используется для входа
+    REQUIRED_FIELDS = ['name']  # Обязательное поле при создании суперпользователя
 
     def __str__(self):
         return self.email
@@ -63,6 +66,7 @@ class UserRole(models.Model):
         unique_together = ('user', 'role')
 
 # Модель мероприятий
+
 class Event(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -70,6 +74,11 @@ class Event(models.Model):
     organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organized_events')
     location = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    registered_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,  # Указывает на вашу кастомную модель User
+        related_name='registered_events',  # Связь для обратного вызова
+        blank=True
+    )
 
     def __str__(self):
         return self.title

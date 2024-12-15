@@ -22,7 +22,6 @@
         <!-- Форма авторизации -->
         <div class="auth-form">
             <h2>Авторизация</h2>
-            <!-- Форма для отправки логина/email и пароля -->
             <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
 
@@ -32,8 +31,10 @@
                     name="username_or_email"
                     placeholder="Email или Логин"
                     class="input-field"
+                    value="{{ form.username_or_email.value }}"
                     required
                 >
+
                 <!-- Поле для ввода пароля -->
                 <input
                     type="password"
@@ -44,6 +45,16 @@
                 >
 
                 <!-- Сообщения об ошибках -->
+                {% if form.errors %}
+                    <ul class="error-messages">
+                        {% for field, errors in form.errors.items %}
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
                 {% if messages %}
                     <ul class="error-messages">
                         {% for message in messages %}

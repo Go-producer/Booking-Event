@@ -7,4 +7,6 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),      # Авторизация
     path('profile/', views.profile_view, name='profile'),
     path('logout/', views.logout_view, name='logout'),
+    path('events/', views.events_list, name='events_list'),
+    path('contact/', views.contact_view, name='contact'),
 ]

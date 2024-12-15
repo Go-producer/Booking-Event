@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список мероприятий</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'booking_app/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="{% url 'home' %}">Главная</a>
+            <span class="logo">EventBooker</span>
+            <a href="{% url 'profile' %}">Личный кабинет</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>Все мероприятия</h2>
+        <ul>
+            {% for event in events %}
+                <li>
+                    <strong>{{ event.title }}</strong>: {{ event.description }}
+                    <p>Дата: {{ event.date }}</p>
+                    <p>Место: {{ event.location }}</p>
+                </li>
+            {% empty %}
+                <p>На данный момент мероприятий нет.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

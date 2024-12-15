@@ -6,19 +6,22 @@ from django.contrib.auth.decorators import login_required
 from .models import Event
 from django.contrib.auth import logout
 from django.contrib import messages
+import logging
+logger = logging.getLogger(__name__)
 
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
+            user.set_password(form.cleaned_data['password'])  # Хэшируем пароль
             user.save()
             login(request, user)
             return redirect('home')
     else:
         form = UserRegistrationForm()
     return render(request, 'booking_app/register.html', {'form': form})
+
 
 
 def login_view(request):
@@ -28,39 +31,34 @@ def login_view(request):
             username_or_email = form.cleaned_data['username_or_email']
             password = form.cleaned_data['password']
 
-            # Проверка: является ли ввод email или логином
             user = None
-            if '@' in username_or_email:  # Если пользователь ввел email
-                try:
-                    user_obj = User.objects.get(email=username_or_email)
-                    user = authenticate(request, username=user_obj.username, password=password)
-                except User.DoesNotExist:
-                    user = None
-            else:  # Если пользователь ввел логин
+            if '@' in username_or_email:  # Проверка email
+                user = authenticate(request, email=username_or_email, password=password)
+            else:  # Проверка логина
                 user = authenticate(request, username=username_or_email, password=password)
 
-            # Аутентификация и вход
             if user is not None:
-                login(request, user)
-                return redirect('profile')  # Перенаправление на страницу пользователя
+                if user.is_active:
+                    login(request, user)
+                    return redirect('profile')
+                else:
+                    form.add_error(None, "Ваш аккаунт отключен.")
             else:
-                messages.error(request, "Неправильный email/логин или пароль.")
+                form.add_error(None, "Неправильный email/логин или пароль.")
     else:
         form = LoginForm()
-
     return render(request, 'booking_app/login.html', {'form': form})
-
 
 
 @login_required
 def profile_view(request):
-    # Пример данных о мероприятиях
-    registered_events = Event.objects.filter(registered_users=request.user)
-    visited_events = Event.objects.filter(visited_users=request.user)
+    # Получаем мероприятия, на которые зарегистрирован пользователь
+    registered_events = request.user.registered_events.all()
 
+    # Вы можете также добавить посещенные мероприятия, если есть поле для этого
     context = {
         'registered_events': registered_events,
-        'visited_events': visited_events,
+        # Если нужно обработать "посещенные" мероприятия, добавьте здесь логику
     }
     return render(request, 'booking_app/profile.html', context)
 
@@ -70,3 +68,20 @@ def logout_view(request):
 
 def home_view(request):
     return render(request, 'booking_app/home.html')  # Шаблон для главной страницы
+
+#Пример регистрации на мероприятия(Позже сделать нормальный)
+@login_required
+def register_to_event(request, event_id):
+    event = Event.objects.get(id=event_id)
+    event.registered_users.add(request.user)
+    return redirect('profile')
+
+
+#Все мероприятия
+def events_list(request):
+    events = Event.objects.all()  # Получаем все мероприятия
+    return render(request, 'booking_app/events_list.html', {'events': events})
+
+#Контакты
+def contact_view(request):
+    return render(request, 'booking_app/contact.html')
