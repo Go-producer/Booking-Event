@@ -1,21 +1,22 @@
+/* Основные стили */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #000; /* Черный фон */
+    background-color: #000; /* Чёрный фон */
     color: #fff;
 }
 
+/* Навигационная панель */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #333; /* Темно-серый */
+    background-color: #333; /* Тёмно-серый */
     color: #fff;
 }
 
-/* Верхняя плашка авторизации */
 .navbar a {
     text-decoration: none;
     color: #fff;
@@ -27,6 +28,7 @@ body {
     font-weight: bold;
 }
 
+/* Контейнер для формы */
 .container {
     display: flex;
     justify-content: center;
@@ -35,52 +37,72 @@ body {
     min-height: 100vh;
 }
 
+/* Форма авторизации */
 .auth-form {
-    background-color: #6a5acd; /* Фиолетовый */
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    background-color: #6a5acd; /* Фиолетовый фон */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8); /* Чёрная тень вокруг */
     text-align: center;
+    width: 400px;
 }
 
 .auth-form h2 {
+    font-size: 28px;
     margin-bottom: 20px;
-    font-size: 24px;
+    color: #fff;
+    font-weight: normal;
 }
 
-.auth-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Поля формы */
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ddd;
+    font-size: 14px;
+    text-align: left;
 }
 
 .auth-form input {
+    width: 100%;
     padding: 10px;
+    margin-bottom: 20px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    background-color: #e6e6e6; /* Серый фон */
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.auth-form input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Легкая подсветка */
 }
 
 .auth-form button {
+    width: 100%;
     padding: 10px;
-    background-color: #333;
+    background-color: #333; /* Тёмная кнопка */
     color: #fff;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .auth-form button:hover {
-    background-color: #555;
+    background-color: #555; /* Серый при наведении */
 }
 
+/* Ссылка для регистрации */
 .register-link {
     margin-top: 20px;
-    color: #fff;
-    text-decoration: none;
+    color: #8f7be7; /* Фиолетовый текст */
+    text-decoration: underline;
+    font-size: 14px;
 }
 
 .register-link:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
