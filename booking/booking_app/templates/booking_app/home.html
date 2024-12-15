@@ -15,7 +15,7 @@
         <div>
             <a href="{% url 'events_list' %}">Все мероприятия</a>
             <a href="{% url 'contact' %}">Контакты</a>
-            <a href="{% url 'profile' %}">Личный кабинет</a>
+            <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">Личный кабинет</a>
         </div>
     </div>
 
@@ -70,7 +70,7 @@
         <ul>
             <li><a href="#">Ближайшие мероприятия</a></li>
             <li><a href="{% url 'events_list' %}">Все мероприятия</a></li>
-            <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+            <li><a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">Личный кабинет</a></li>
             <li><a href="{% url 'contact' %}">Контакты</a></li>
         </ul>
     </footer>
