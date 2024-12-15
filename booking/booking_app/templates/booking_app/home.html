@@ -9,21 +9,24 @@
 </head>
 <body>
     <!-- Верхняя навигация -->
+    <!-- Верхняя плашка -->
     <div class="navbar">
-        <a href="#">Все мероприятия</a>
-        <span>EventBooker</span>
+        <span><a href="{% url 'home' %}">EventBooker</a></span>
         <div>
-            <a href="#">Контакты</a>
-            <a href="#">Личный кабинет</a>
+            <a href="{% url 'events_list' %}">Все мероприятия</a>
+            <a href="{% url 'contact' %}">Контакты</a>
+            <a href="{% url 'profile' %}">Личный кабинет</a>
         </div>
     </div>
 
+
     <!-- Главный баннер -->
     <div class="hero-section">
-        <h1>Забронируйте мероприятие<br> прямо сейчас!</h1>
-        <p>Получите доступ к лучшим концертам, спектаклям и фестивалям в вашем городе.</p>
-        <button class="btn-main">Забронировать</button>
+        <h1>Забронируйте мероприятие прямо сейчас!</h1>
+        <p>Не упустите шанс стать частью незабываемых концертов, театральных постановок и выставок!</p>
+        <a href="{% url 'events_list' %}" class="btn-main">Забронировать</a>
     </div>
+
 
     <!-- Популярные мероприятия -->
     <section class="popular-events">
@@ -66,9 +69,9 @@
         <h2>EventBooker</h2>
         <ul>
             <li><a href="#">Ближайшие мероприятия</a></li>
-            <li><a href="#">Все мероприятия</a></li>
-            <li><a href="#">Личный кабинет</a></li>
-            <li><a href="#">Контакты</a></li>
+            <li><a href="{% url 'events_list' %}">Все мероприятия</a></li>
+            <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+            <li><a href="{% url 'contact' %}">Контакты</a></li>
         </ul>
     </footer>
 </body>
