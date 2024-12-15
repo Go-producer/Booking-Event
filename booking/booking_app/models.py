@@ -28,6 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=40, unique=True)  # Логин (если нужен уникальный)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)  # Новый флаг администратора
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -47,6 +48,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+    @property
+    def is_superuser(self):
+        return self.is_admin
 
 
 # Модель ролей

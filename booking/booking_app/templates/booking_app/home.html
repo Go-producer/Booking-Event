@@ -16,8 +16,18 @@
             <a href="{% url 'events_list' %}">Все мероприятия</a>
             <a href="{% url 'contact' %}">Контакты</a>
             <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">Личный кабинет</a>
+            {% if user.is_authenticated %}
+                {% if user.is_staff or user.is_superuser %}
+                    <a href="/admin/">Админ-панель</a>
+                    <a href="{% url 'users_list' %}">Список пользователей</a>
+                {% endif %}
+                <a href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Вход</a>
+            {% endif %}
         </div>
     </div>
+
 
 
     <!-- Главный баннер -->
@@ -72,7 +82,17 @@
             <li><a href="{% url 'events_list' %}">Все мероприятия</a></li>
             <li><a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">Личный кабинет</a></li>
             <li><a href="{% url 'contact' %}">Контакты</a></li>
+            {% if user.is_authenticated %}
+                {% if user.is_staff or user.is_superuser %}
+                    <li><a href="/admin/">Админ-панель</a></li>
+                    <li><a href="{% url 'users_list' %}">Список пользователей</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout' %}">Выйти</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Вход</a></li>
+            {% endif %}
         </ul>
     </footer>
+
 </body>
 </html>

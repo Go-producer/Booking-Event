@@ -7,6 +7,8 @@ from .models import Event
 from django.contrib.auth import logout
 from django.contrib import messages
 import logging
+from django.contrib.auth.decorators import user_passes_test
+from .models import User
 logger = logging.getLogger(__name__)
 
 def register(request):
@@ -32,14 +34,16 @@ def login_view(request):
             password = form.cleaned_data['password']
 
             user = None
-            if '@' in username_or_email:  # Проверка email
+            if '@' in username_or_email:
                 user = authenticate(request, email=username_or_email, password=password)
-            else:  # Проверка логина
+            else:
                 user = authenticate(request, username=username_or_email, password=password)
 
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    if user.is_admin or user.is_staff:  # Если пользователь администратор
+                        return redirect('/admin/')  # Перенаправляем в админ-панель
                     return redirect('profile')
                 else:
                     form.add_error(None, "Ваш аккаунт отключен.")
@@ -48,6 +52,7 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'booking_app/login.html', {'form': form})
+
 
 
 @login_required
@@ -85,3 +90,12 @@ def events_list(request):
 #Контакты
 def contact_view(request):
     return render(request, 'booking_app/contact.html')
+
+# Проверка на роль администратора
+def admin_check(user):
+    return user.is_admin or user.is_staff
+
+@user_passes_test(admin_check)  # Только для администраторов
+def users_list(request):
+    users = User.objects.all()
+    return render(request, 'booking_app/users_list.html', {'users': users})
