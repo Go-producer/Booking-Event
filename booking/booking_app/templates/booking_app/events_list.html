@@ -12,7 +12,7 @@
         <nav class="navbar">
             <a href="{% url 'home' %}">Главная</a>
             <span class="logo">EventBooker</span>
-            <a href="{% url 'profile' %}">Личный кабинет</a>
+            <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">Личный кабинет</a>
         </nav>
     </header>
     <div class="container">

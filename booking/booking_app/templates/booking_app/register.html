@@ -10,10 +10,10 @@
 <body>
     <!-- Навигационная панель -->
     <div class="navbar">
-        <a href="#">Все мероприятия</a>
-        <span>EventBooker</span>
+        <a href="{% url 'events_list' %}">Все мероприятия</a>
+        <span><a href="{% url 'home' %}">EventBooker</a></span>
         <div>
-            <a href="#">Контакты</a>
+            <a href="{% url 'contact' %}">Контакты</a>
             <a href="#">Личный кабинет</a>
         </div>
     </div>
