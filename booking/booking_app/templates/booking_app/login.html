@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container">
+        <!-- Шапка сайта -->
         <header>
             <nav class="navbar">
                 <a href="#">Все мероприятия</a>
@@ -17,14 +18,45 @@
                 <a href="#">Личный кабинет</a>
             </nav>
         </header>
+
+        <!-- Форма авторизации -->
         <div class="auth-form">
             <h2>Авторизация</h2>
+            <!-- Форма для отправки логина/email и пароля -->
             <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Пароль" required>
-                <button type="submit">Войти</button>
+
+                <!-- Поле для ввода логина или email -->
+                <input
+                    type="text"
+                    name="username_or_email"
+                    placeholder="Email или Логин"
+                    class="input-field"
+                    required
+                >
+                <!-- Поле для ввода пароля -->
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Пароль"
+                    class="input-field"
+                    required
+                >
+
+                <!-- Сообщения об ошибках -->
+                {% if messages %}
+                    <ul class="error-messages">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- Кнопка для входа -->
+                <button type="submit" class="submit-btn">Войти</button>
             </form>
+
+            <!-- Ссылка для перехода к регистрации -->
             <a href="{% url 'register' %}" class="register-link">Зарегистрироваться</a>
         </div>
     </div>

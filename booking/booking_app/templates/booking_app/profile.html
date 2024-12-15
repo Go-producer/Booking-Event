@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'booking_app/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="{% url 'events_list' %}">Все мероприятия</a>
+            <span class="logo">EventBooker</span>
+            <a href="{% url 'contact' %}">Контакты</a>
+            <a href="{% url 'profile' %}" class="active">Личный кабинет</a>
+        </nav>
+    </header>
+    <div class="container">
+        <!-- Блок профиля пользователя -->
+        <section class="profile">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <!-- Заглушка для фото профиля -->
+                    <img src="{% static 'booking_app/images/default_avatar.png' %}" alt="Фото профиля">
+                </div>
+                <div class="profile-details">
+                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                    <p>Отчество: {{ user.profile.patronymic }}</p>
+                    <p>Email: {{ user.email }}</p>
+                    <a href="{% url 'logout' %}" class="logout-btn">Выйти</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок с зарегистрированными мероприятиями -->
+        <section class="events-registered">
+            <h3>Вы зарегистрированы на:</h3>
+            <div class="events-list">
+                {% for event in registered_events %}
+                    <div class="event-card">
+                        <img src="{{ event.image_url }}" alt="{{ event.name }}">
+                        <p>{{ event.name }}</p>
+                    </div>
+                {% empty %}
+                    <p>Вы пока не зарегистрированы на мероприятия.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Блок с посещенными мероприятиями -->
+        <section class="events-visited">
+            <h3>Посещенные мероприятия:</h3>
+            <div class="events-list">
+                {% for event in visited_events %}
+                    <div class="event-card">
+                        <img src="{{ event.image_url }}" alt="{{ event.name }}">
+                        <p>{{ event.name }}</p>
+                    </div>
+                {% empty %}
+                    <p>Вы пока не посещали мероприятия.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="footer-content">
+            <p>EventBooker</p>
+            <nav>
+                <a href="{% url 'events_list' %}">Все мероприятия</a>
+                <a href="{% url 'contact' %}">Контакты</a>
+                <a href="{% url 'profile' %}">Личный кабинет</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

@@ -20,3 +20,17 @@ class UserRegistrationForm(forms.ModelForm):
 
 class UserLoginForm(AuthenticationForm):
     pass
+
+
+class LoginForm(forms.Form):
+    username_or_email = forms.CharField(
+        max_length=150,
+        label="Логин или Email",
+        widget=forms.TextInput(attrs={'placeholder': 'Введите логин или email', 'class': 'form-control'})
+    )
+    password = forms.CharField(
+        label="Пароль",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль', 'class': 'form-control'})
+    )
+
+
