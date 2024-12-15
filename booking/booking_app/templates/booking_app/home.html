@@ -3,16 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
+    <title>EventBooker</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'booking_app/css/style.css' %}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Добро пожаловать в EventBooker!</h1>
-        </header>
-        <p>Вы успешно вошли в систему. Теперь вы можете просматривать мероприятия.</p>
+    <!-- Верхняя навигация -->
+    <div class="navbar">
+        <a href="#">Все мероприятия</a>
+        <span>EventBooker</span>
+        <div>
+            <a href="#">Контакты</a>
+            <a href="#">Личный кабинет</a>
+        </div>
     </div>
+
+    <!-- Главный баннер -->
+    <div class="hero-section">
+        <h1>Забронируйте мероприятие<br> прямо сейчас!</h1>
+        <p>Получите доступ к лучшим концертам, спектаклям и фестивалям в вашем городе.</p>
+        <button class="btn-main">Забронировать</button>
+    </div>
+
+    <!-- Популярные мероприятия -->
+    <section class="popular-events">
+        <h2>Популярные мероприятия</h2>
+        <div class="events-grid">
+            <div class="event-card">
+                <img src="{% static 'booking_app/images/concert.jpg' %}" alt="Концерт">
+                <p>Концерт известной группы</p>
+                <small>Посетите концерт вашей любимой группы и насладитесь живой музыкой.</small>
+            </div>
+            <div class="event-card">
+                <img src="{% static 'booking_app/images/art.jpg' %}" alt="Искусство">
+                <p>Выставка современного искусства</p>
+                <small>Уникальные экспозиции современных художников.</small>
+            </div>
+            <div class="event-card">
+                <img src="{% static 'booking_app/images/theater.jpg' %}" alt="Театр">
+                <p>Театральная премьера</p>
+                <small>Премьеры и классические постановки.</small>
+            </div>
+            <div class="event-card">
+                <img src="{% static 'booking_app/images/film.jpg' %}" alt="Кинофестиваль">
+                <p>Кинофестиваль</p>
+                <small>Лучшие фильмы на большом экране.</small>
+            </div>
+        </div>
+        <a href="#" class="more-link">Еще мероприятия...</a>
+    </section>
+
+    <!-- Ближайшие события -->
+    <section class="upcoming-events">
+        <h2>Ближайшие события</h2>
+        <p class="highlighted">Концерт группы "Легенда": 5 декабря 2024 в 19:00</p>
+        <p>Присоединяйтесь к нам для уникального вечера с живым звуком и световым шоу.</p>
+        <a href="#" class="btn-register">Зарегистрироваться</a>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <h2>EventBooker</h2>
+        <ul>
+            <li><a href="#">Ближайшие мероприятия</a></li>
+            <li><a href="#">Все мероприятия</a></li>
+            <li><a href="#">Личный кабинет</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </footer>
 </body>
 </html>
