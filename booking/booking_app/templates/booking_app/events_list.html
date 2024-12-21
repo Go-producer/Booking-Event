@@ -15,24 +15,23 @@
             <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">Личный кабинет</a>
         </nav>
     </header>
-    <div class="container">
+    <!-- Список мероприятий -->
+    <section class="all-events">
         <h2>Все мероприятия</h2>
-        <ul>
+        <div class="events-grid">
             {% for event in events %}
-                <li>
-                    <strong>{{ event.title }}</strong>: {{ event.description }}
-                    <p>Дата: {{ event.date }}</p>
-                    <p>Место: {{ event.location }}</p>
-                    {% if event.image %}
-                        <img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 200px; height: auto;">
-                    {% else %}
-                        <p>Изображение отсутствует</p>
-                    {% endif %}
-                </li>
+            <div class="event-card">
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 200px; height: auto;">
+                <p>{{ event.title }}</p>
+                <small>{{ event.description|truncatewords:15 }}</small>
+                <p><strong>Дата:</strong> {{ event.date }}</p>
+                <p><strong>Место:</strong> {{ event.location }}</p>
+                <a href="{% url 'event_detail' event.id %}" class="btn-register">Подробнее</a>
+            </div>
             {% empty %}
-                <p>На данный момент мероприятий нет.</p>
+            <p>Пока нет мероприятий.</p>
             {% endfor %}
-        </ul>
-    </div>
+        </div>
+    </section>
 </body>
 </html>

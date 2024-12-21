@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from .forms import UserRegistrationForm, UserLoginForm, LoginForm
@@ -90,6 +91,11 @@ def register_to_event(request, event_id):
 def events_list(request):
     events = Event.objects.all()  # Получаем все мероприятия
     return render(request, 'booking_app/events_list.html', {'events': events})
+
+
+def event_detail(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    return render(request, 'booking_app/event_detail.html', {'event': event})
 
 #Контакты
 def contact_view(request):
