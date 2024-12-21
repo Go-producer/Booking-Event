@@ -25,8 +25,24 @@ class UserAdmin(BaseUserAdmin):
 
     ordering = ('email',)
 
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'organizer', 'location', 'price', 'image')  # Поля для отображения
+    search_fields = ('title', 'description', 'organizer__email')  # Поля для поиска
+    list_filter = ('date', 'location')  # Фильтры
+    ordering = ('date',)  # Сортировка
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description', 'date', 'organizer', 'location', 'price', 'registered_users', 'image')
+        }),
+    )
+    filter_horizontal = ('registered_users',)  # Удобный выбор для ManyToMany поля
+
+#admin.site.register(Event, EventAdmin)
+
+
 # Регистрируем модели
 admin.site.register(User, UserAdmin)
-admin.site.register(Event)
+#admin.site.register(Event)
 admin.site.register(Role)
 admin.site.register(UserRole)
+admin.site.register(Event, EventAdmin)

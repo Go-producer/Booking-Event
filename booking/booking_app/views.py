@@ -25,9 +25,6 @@ def register(request):
     return render(request, 'booking_app/register.html', {'form': form})
 
 
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm
-from django.shortcuts import render, redirect
 
 
 def login_view(request):

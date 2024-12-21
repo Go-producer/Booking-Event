@@ -23,6 +23,11 @@
                     <strong>{{ event.title }}</strong>: {{ event.description }}
                     <p>Дата: {{ event.date }}</p>
                     <p>Место: {{ event.location }}</p>
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 200px; height: auto;">
+                    {% else %}
+                        <p>Изображение отсутствует</p>
+                    {% endif %}
                 </li>
             {% empty %}
                 <p>На данный момент мероприятий нет.</p>

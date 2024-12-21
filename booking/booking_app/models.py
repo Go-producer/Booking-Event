@@ -77,9 +77,10 @@ class Event(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     date = models.DateField()
-    organizer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organized_events')
+    organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='organized_events')
     location = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='event_images/', blank=True, null=True)
     registered_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL,  # Указывает на вашу кастомную модель User
         related_name='registered_events',  # Связь для обратного вызова
