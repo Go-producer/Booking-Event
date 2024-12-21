@@ -20,7 +20,7 @@
         <h2>Все мероприятия</h2>
         <div class="events-grid">
             {% for event in events %}
-            <div class="event-card">
+            <div class="event-card" style="width: 60%; background-color: #333; padding: 10px; margin: 20px auto;">
                 <img src="{{ event.image.url }}" alt="{{ event.title }}" style="max-width: 200px; height: auto;">
                 <p>{{ event.title }}</p>
                 <small>{{ event.description|truncatewords:15 }}</small>
