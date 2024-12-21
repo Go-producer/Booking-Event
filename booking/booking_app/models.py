@@ -18,7 +18,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, name, password):
         user = self.create_user(email, name, password)
         user.is_staff = True
-        user.is_superuser = True
+        user.is_admin = True
         user.save(using=self._db)
         return user
 
@@ -49,10 +49,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-
     @property
     def is_superuser(self):
         return self.is_admin
+
 
 
 # Модель ролей

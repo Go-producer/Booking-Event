@@ -25,6 +25,10 @@ def register(request):
     return render(request, 'booking_app/register.html', {'form': form})
 
 
+from django.contrib.auth import authenticate, login
+from .forms import LoginForm
+from django.shortcuts import render, redirect
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -33,10 +37,13 @@ def login_view(request):
             username_or_email = form.cleaned_data['username_or_email']
             password = form.cleaned_data['password']
 
+            # Добавляем логику поиска пользователя по email или имени
             user = None
             if '@' in username_or_email:
-                user = authenticate(request, email=username_or_email, password=password)
+                # Если в поле есть '@', ищем по email
+                user = authenticate(request, username=username_or_email, password=password)
             else:
+                # Иначе ищем по имени пользователя
                 user = authenticate(request, username=username_or_email, password=password)
 
             if user is not None:
@@ -44,15 +51,15 @@ def login_view(request):
                     login(request, user)
                     if user.is_admin or user.is_staff:  # Если пользователь администратор
                         return redirect('/admin/')  # Перенаправляем в админ-панель
-                    return redirect('profile')
+                    return redirect('profile')  # Перенаправляем на профиль
                 else:
                     form.add_error(None, "Ваш аккаунт отключен.")
             else:
                 form.add_error(None, "Неправильный email/логин или пароль.")
     else:
         form = LoginForm()
-    return render(request, 'booking_app/login.html', {'form': form})
 
+    return render(request, 'booking_app/login.html', {'form': form})
 
 
 @login_required
